@@ -140,6 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb397210f9be564c9f04cfa4deb822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevelName: Level1
+  turnDelay: 0.5
+  movementSpeed: 2
 --- !u!4 &994328837
 Transform:
   m_ObjectHideFlags: 0

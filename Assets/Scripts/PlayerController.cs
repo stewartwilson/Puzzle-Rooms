@@ -4,22 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public float transitionSpeed;
-    public Facing facing;
-
-    public int xPosition;
-    public int yPosition;
-
-    public float inputDelay;
-
-    private float inputWaitTime;
-
-    public bool isMoving;
-
-    public Vector2 movementTarget;
-
+    
+    
+    private bool isMoving;
+    private Vector2 movementTarget;
+    private float turnDelay = 1f;
+    private Facing facing;
+    private float transitionSpeed;
     private GameController gameController;
-
     private LevelData levelData;
 
 	// Use this for initialization
@@ -29,6 +21,8 @@ public class PlayerController : MonoBehaviour {
         if(gameController == null)
         {
             gameController = GameObject.Find("GameController").GetComponent<GameController>();
+            turnDelay = gameController.turnDelay;
+            transitionSpeed = gameController.movementSpeed;
         }
         if (levelData == null)
         {
@@ -92,7 +86,7 @@ public class PlayerController : MonoBehaviour {
     {
         isMoving = true;
         movementTarget = _movementTarget;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(turnDelay);
         isMoving = false;
         gameController.TakeTurn();
     }

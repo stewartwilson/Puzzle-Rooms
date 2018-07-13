@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
-    public float transitionSpeed;
-    public Facing facing;
-
-    public int xPosition;
-    public int yPosition;
-
-    public bool isMoving;
-
-    public Vector2 movementTarget;
-
     public List<Vector2> path;
-
     public bool repeatPath;
 
+    private float transitionSpeed;
+    private Facing facing;
+    private Vector2 movementTarget;
+    private GameController gameController;
     private LevelData levelData;
 
     // Use this for initialization
     void Start()
     {
+
+        if (gameController == null)
+        {
+            gameController = GameObject.Find("GameController").GetComponent<GameController>();
+            transitionSpeed = gameController.movementSpeed;
+        }
         levelData = GameObject.Find("LevelData").GetComponent<LevelData>();
         movementTarget = transform.position;
-        isMoving = false;
     }
 
     // Update is called once per frame
@@ -36,38 +33,74 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, movementTarget, step);
     }
 
-    IEnumerator TakeTurn(Vector3 _movementTarget)
-    {
-        isMoving = true;
-        movementTarget = _movementTarget;
-        yield return new WaitForSeconds(1f);
-        isMoving = false;
-    }
-
     public void TakeTurn()
     {
+        MakeMove();
+    }
+
+    private void MakeMove()
+    {
         Vector2 _movementTarget = Vector2.zero;
-        if (!isMoving)
+        switch (facing)
         {
-            switch (facing)
-            {
-                case Facing.Down:
-                    _movementTarget = transform.position + new Vector3(0, -1, 0);
-                    break;
-                case Facing.Up:
-                    _movementTarget = transform.position + new Vector3(0, 1, 0);
-                    break;
-                case Facing.Left:
-                    _movementTarget = transform.position + new Vector3(-0, 0, 0);
-                    break;
-                case Facing.Right:
-                    _movementTarget = transform.position + new Vector3(1, 0, 0);
-                    break;
-            }
-            if (levelData.isCellPositionValid(_movementTarget))
-            {
-                movementTarget = _movementTarget;
-            }
+            case Facing.Down:
+                _movementTarget = transform.position + new Vector3(0, -1, 0);
+                break;
+            case Facing.Up:
+                _movementTarget = transform.position + new Vector3(0, 1, 0);
+                break;
+            case Facing.Left:
+                _movementTarget = transform.position + new Vector3(-0, 0, 0);
+                break;
+            case Facing.Right:
+                _movementTarget = transform.position + new Vector3(1, 0, 0);
+                break;
+        }
+        if (levelData.isCellPositionValid(_movementTarget))
+        {
+            movementTarget = _movementTarget;
+        } else
+        {
+            FlipAndMove();
         }
     }
+
+    private void FlipAndMove()
+    {
+        switch (facing)
+        {
+            case Facing.Down:
+                facing = Facing.Up;
+                break;
+            case Facing.Up:
+                facing = Facing.Down;
+                break;
+            case Facing.Left:
+                facing = Facing.Right;
+                break;
+            case Facing.Right:
+                facing = Facing.Left;
+                break;
+        }
+        MakeMove();
+    }
+    private void TurnAndMove()
+    {
+        switch (facing)
+        {
+            case Facing.Down:
+                facing = Facing.Left;
+                break;
+            case Facing.Up:
+                facing = Facing.Right;
+                break;
+            case Facing.Left:
+                facing = Facing.Up;
+                break;
+            case Facing.Right:
+                facing = Facing.Down;
+                break;
+        }
+    }
+
 }

@@ -4,18 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-    private List<Vector2> validPositions;
     private List<GameObject> hazards;
     public string currentLevelName = "Level1";
+    public float turnDelay;
+    public float movementSpeed;
 
-    private void Start()
+    public void SetHazards(List<GameObject> _hazards)
     {
-        hazards = new List<GameObject>();
-        foreach (Transform child in GameObject.Find("Hazards").transform)
-        {
-            hazards.Add(child.gameObject);
-        }
-    }
+        hazards = _hazards;
+    } 
 
     public void TakeTurn()
     {

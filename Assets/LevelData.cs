@@ -10,6 +10,17 @@ public class LevelData : MonoBehaviour {
     private void Start()
     {
         tilemap = GetComponentInChildren<Tilemap>();
+        PopulateHazardsList();
+    }
+
+    private void PopulateHazardsList()
+    {
+        List<GameObject> _hazards = new List<GameObject>();
+        foreach (Transform child in GameObject.Find("Hazards").transform)
+        {
+            _hazards.Add(child.gameObject);
+        }
+        GameObject.Find("GameController").GetComponent<GameController>().SetHazards(_hazards);
     }
 
     public bool isCellPositionValid(Vector3 _position)
