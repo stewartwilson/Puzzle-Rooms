@@ -80,8 +80,8 @@ public class PlayerController : MonoBehaviour {
         }
 
 
-            float step = transitionSpeed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position,movementTarget, step);
+        float step = transitionSpeed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position,movementTarget, step);
         
 
         
@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour {
         movementTarget = _movementTarget;
         yield return new WaitForSeconds(1f);
         isMoving = false;
+        gameController.TakeTurn();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

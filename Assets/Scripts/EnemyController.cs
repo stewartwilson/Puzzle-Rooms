@@ -19,9 +19,12 @@ public class EnemyController : MonoBehaviour
 
     public bool repeatPath;
 
+    private LevelData levelData;
+
     // Use this for initialization
     void Start()
     {
+        levelData = GameObject.Find("LevelData").GetComponent<LevelData>();
         movementTarget = transform.position;
         isMoving = false;
     }
@@ -29,19 +32,42 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 movement = Vector2.zero;
-        if (!isMoving)
-        {
-            
-        }
-
+        float step = transitionSpeed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, movementTarget, step);
     }
 
-    IEnumerator TakeTurn(Vector3 movement)
+    IEnumerator TakeTurn(Vector3 _movementTarget)
     {
         isMoving = true;
-        movementTarget = transform.position + movement;
+        movementTarget = _movementTarget;
         yield return new WaitForSeconds(1f);
         isMoving = false;
+    }
+
+    public void TakeTurn()
+    {
+        Vector2 _movementTarget = Vector2.zero;
+        if (!isMoving)
+        {
+            switch (facing)
+            {
+                case Facing.Down:
+                    _movementTarget = transform.position + new Vector3(0, -1, 0);
+                    break;
+                case Facing.Up:
+                    _movementTarget = transform.position + new Vector3(0, 1, 0);
+                    break;
+                case Facing.Left:
+                    _movementTarget = transform.position + new Vector3(-0, 0, 0);
+                    break;
+                case Facing.Right:
+                    _movementTarget = transform.position + new Vector3(1, 0, 0);
+                    break;
+            }
+            if (levelData.isCellPositionValid(_movementTarget))
+            {
+                movementTarget = _movementTarget;
+            }
+        }
     }
 }
