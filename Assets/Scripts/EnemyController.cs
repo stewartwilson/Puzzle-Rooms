@@ -16,7 +16,6 @@ public class EnemyController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         if (gameController == null)
         {
             gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -50,18 +49,19 @@ public class EnemyController : MonoBehaviour
                 _movementTarget = transform.position + new Vector3(0, 1, 0);
                 break;
             case Facing.Left:
-                _movementTarget = transform.position + new Vector3(-0, 0, 0);
+                _movementTarget = transform.position + new Vector3(-1, 0, 0);
                 break;
             case Facing.Right:
                 _movementTarget = transform.position + new Vector3(1, 0, 0);
                 break;
         }
+        Debug.Log("Enemy Move: " + _movementTarget + "Facing " + facing);
         if (levelData.isCellPositionValid(_movementTarget))
         {
             movementTarget = _movementTarget;
         } else
         {
-            FlipAndMove();
+            TurnAndMove();
         }
     }
 
@@ -101,6 +101,7 @@ public class EnemyController : MonoBehaviour
                 facing = Facing.Down;
                 break;
         }
+        MakeMove();
     }
 
 }

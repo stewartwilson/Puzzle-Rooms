@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    
-    
     private bool isMoving;
     private Vector2 movementTarget;
     private float turnDelay = 1f;
