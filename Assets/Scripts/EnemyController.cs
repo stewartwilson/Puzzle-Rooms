@@ -104,4 +104,9 @@ public class EnemyController : MonoBehaviour
         MakeMove();
     }
 
+    public void SetFacing(Facing _facing)
+    {
+        facing = _facing;
+    }
+
 }
