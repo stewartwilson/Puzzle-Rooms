@@ -17,41 +17,41 @@ public class LevelCSVParser : MonoBehaviour {
 
     private void Update()
     {
-        if(!hasPopulated)
-        {
-            PopulateLevelFromFile();
-        }
     }
 
-    private void PopulateLevelFromFile()
+    public void PopulateLevelFromFile()
     {
-        if (csvFile != null)
+        if (!hasPopulated)
         {
-            
-            int y = 0;
-            _lines = Regex.Split(csvFile.text, "\n");
-            foreach(string _line in _lines)
+            if (csvFile != null)
             {
-                int x = 0;
-                string[] _tiles = _line.Split(',');
-                
-                foreach (string _tile in _tiles)
+
+                int y = 0;
+                _lines = Regex.Split(csvFile.text, "\n");
+                foreach (string _line in _lines)
                 {
-                    if (_tile != null && !_tile.Equals("")) { 
-                        GameObject go = InitGameObjectFromKey(_tile);
-                        go.transform.position = new Vector2(x, -y);
-                        go.transform.SetParent(tilemap.gameObject.transform);
-                        if(_tile.Contains("enter"))
+                    int x = 0;
+                    string[] _tiles = _line.Split(',');
+
+                    foreach (string _tile in _tiles)
+                    {
+                        if (_tile != null && !_tile.Equals(""))
                         {
-                            GameObject _player = Instantiate(player);
-                            _player.transform.position = new Vector2(x, -y);
+                            GameObject go = InitGameObjectFromKey(_tile);
+                            go.transform.position = new Vector2(x, -y);
+                            go.transform.SetParent(tilemap.gameObject.transform);
+                            if (_tile.Contains("enter"))
+                            {
+                                GameObject _player = Instantiate(player);
+                                _player.transform.position = new Vector2(x, -y);
+                            }
                         }
+                        x++;
                     }
-                    x++;
+                    y++;
                 }
-                y++;
+                hasPopulated = true;
             }
-            hasPopulated = true;
         }
     }
 

@@ -101,5 +101,16 @@ public class PlayerController : MonoBehaviour {
         {
             gameController.reloadLevel();
         }
+        if (collision.tag.Equals("CollapsingFloor"))
+        {
+            CollapsingFloor cf = collision.gameObject.GetComponent<CollapsingFloor>();
+            if(cf.hasPlayerStepedOn)
+            {
+                Destroy(collision.gameObject);
+            } else
+            {
+                cf.hasPlayerStepedOn = true;
+            }
+        }
     }
 }
