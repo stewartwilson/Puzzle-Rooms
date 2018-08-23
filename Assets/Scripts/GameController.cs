@@ -18,10 +18,13 @@ public class GameController : MonoBehaviour {
     {
         foreach(GameObject go in hazards)
         {
-            EnemyController ec = go.GetComponent<EnemyController>();
-            if(ec != null)
+            if ("Enemy".Equals(go.tag))
             {
-                ec.TakeTurn();
+                EnemyController ec = go.GetComponent<EnemyController>();
+                if (ec != null)
+                {
+                    ec.TakeTurn();
+                }
             }
         }
     }

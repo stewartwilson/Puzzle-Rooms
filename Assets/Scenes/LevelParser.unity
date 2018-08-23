@@ -152,6 +152,8 @@ MonoBehaviour:
     go: {fileID: 1581958222760732, guid: 793c7342783a99e4b812fa27a6855d12, type: 2}
   - key: exit
     go: {fileID: 1599192261242598, guid: fe445173a4dff9140ab74b6c29b99948, type: 2}
+  - key: cf
+    go: {fileID: 1986944207093626, guid: 229c430ce1c00d7439efd2934d4dbe12, type: 2}
   _lines: []
 --- !u!4 &23549823
 Transform:
