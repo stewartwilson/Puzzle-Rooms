@@ -9,6 +9,11 @@ public class LevelData : MonoBehaviour {
     public GameObject tiles;
     public GameObject hazards;
 
+    private void Start()
+    {
+        PopulateLevelData();
+    }
+
     public void PopulateLevelData()
     {
         PopulateHazardsList();

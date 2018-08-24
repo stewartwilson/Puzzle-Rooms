@@ -12,14 +12,9 @@ public class LevelCSVParser : MonoBehaviour {
     public GameObject baseTile;
     public GameObject hazards;
     public List<LevelObject> levelObjects;
-    private bool hasPopulated = false;
+    public bool hasPopulated = false;
 
     public string[] _lines;
-
-
-    private void Update()
-    {
-    }
 
     public void PopulateLevelFromFile()
     {
@@ -44,6 +39,8 @@ public class LevelCSVParser : MonoBehaviour {
                             if (go.tag.Equals("Enemy")) {
                                 GameObject floor = Instantiate(baseTile, go.transform.position, Quaternion.identity);
                                 floor.transform.SetParent(tiles.transform);
+                                string name = floor.name.Replace("(Clone)", "");
+                                floor.name = name;
                                 go.transform.SetParent(hazards.transform);
 
                             } else
@@ -53,12 +50,16 @@ public class LevelCSVParser : MonoBehaviour {
                             if (_tile.Contains("enter"))
                             {
                                 GameObject _player = Instantiate(player);
+                                string name = _player.name.Replace("(Clone)", "");
+                                _player.name = name;
                                 _player.transform.position = new Vector2(x, -y);
                             }
                         } else if(_tile.Equals(""))
                         {
                             GameObject floor = Instantiate(baseTile, new Vector2(x, -y), Quaternion.identity);
                             floor.transform.SetParent(tiles.transform);
+                            string name = floor.name.Replace("(Clone)", "");
+                            floor.name = name;
                         }
                         x++;
                     }
@@ -77,6 +78,8 @@ public class LevelCSVParser : MonoBehaviour {
             if(_key.Equals(_levelObject.key))
             {
                 GameObject go = Instantiate(_levelObject.go);
+                string name = go.name.Replace("(Clone)", "");
+                go.name = name;
                 return go;
             } 
             if(_key.Equals("enter"))
@@ -92,7 +95,9 @@ public class LevelCSVParser : MonoBehaviour {
                 if (_enemy[0].Equals(_levelObject.key))
                 {
                     GameObject go = Instantiate(_levelObject.go);
-                    switch(_enemy[1])
+                    string name = go.name.Replace("(Clone)", "");
+                    go.name = name;
+                    switch (_enemy[1])
                     {
                         case "L":
                             go.GetComponent<EnemyController>().SetFacing(Facing.Left);

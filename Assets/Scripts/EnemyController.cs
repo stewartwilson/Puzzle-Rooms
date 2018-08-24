@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public List<Vector2> path;
+    public Facing facing;
     public bool repeatPath;
 
     private float transitionSpeed;
-    private Facing facing;
     private Vector2 movementTarget;
     private GameController gameController;
     private LevelData levelData;
