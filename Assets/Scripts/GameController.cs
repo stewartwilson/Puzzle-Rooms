@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-    private List<GameObject> hazards;
+    public List<GameObject> hazards;
     public string currentLevelName = "Level1";
     public float turnDelay;
     public float movementSpeed;

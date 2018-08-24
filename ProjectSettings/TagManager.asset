@@ -8,6 +8,7 @@ TagManager:
   - LevelEntrance
   - Enemy
   - CollapsingFloor
+  - Walkable
   layers:
   - Default
   - TransparentFX

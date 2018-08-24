@@ -56,12 +56,12 @@ public class EnemyController : MonoBehaviour
                 break;
         }
         Debug.Log("Enemy Move: " + _movementTarget + "Facing " + facing);
-        if (levelData.isCellPositionValid(_movementTarget))
+        if (levelData.isMoveValid(_movementTarget))
         {
             movementTarget = _movementTarget;
         } else
         {
-            TurnAndMove();
+            FlipAndMove();
         }
     }
 

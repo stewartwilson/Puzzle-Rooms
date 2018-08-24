@@ -5,39 +5,43 @@ using UnityEngine.Tilemaps;
 
 public class LevelData : MonoBehaviour {
 
-    Tilemap tilemap;
+    public List<Vector3> validMoves = new List<Vector3>();
+    public GameObject tiles;
+    public GameObject hazards;
 
-    private void Start()
+    public void PopulateLevelData()
     {
-        tilemap = GetComponentInChildren<Tilemap>();
         PopulateHazardsList();
+        PopulateValidMovesList();
     }
 
-    private void PopulateHazardsList()
+    public void PopulateHazardsList()
     {
         List<GameObject> _hazards = new List<GameObject>();
-        foreach (Transform child in GameObject.Find("Hazards").transform)
+        foreach (Transform child in hazards.transform)
         {
             _hazards.Add(child.gameObject);
         }
         GameObject.Find("GameController").GetComponent<GameController>().SetHazards(_hazards);
     }
 
-    public bool isCellPositionValid(Vector3 _position)
+    public void PopulateValidMovesList()
     {
-        Vector3Int _cellPosition =  tilemap.LocalToCell(_position);
-        Debug.Log(_cellPosition);
-        TileBase _tile = tilemap.GetTile(_cellPosition);
-        if (_tile != null)
+        List<GameObject> _tiles = new List<GameObject>();
+        foreach (Transform child in tiles.transform)
         {
-            Debug.Log("tile found" + _tile.name);
-            if (_tile.name.Contains("wall"))
+            if(child.gameObject.tag.Equals("Walkable"))
             {
-                return false;
-            } else
-            {
-                return true;
+                validMoves.Add(child.position);
             }
+        }
+    }
+
+    public bool isMoveValid(Vector3 _position)
+    {
+        if(validMoves.Contains(_position))
+        {
+            return true;
         } else
         {
             return false;

@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 
             if(_attemptMove)
             {
-                if (levelData.isCellPositionValid(_movementTarget))
+                if (levelData.isMoveValid(_movementTarget))
                 {
                     StartCoroutine(TakeTurn(_movementTarget));
                 }

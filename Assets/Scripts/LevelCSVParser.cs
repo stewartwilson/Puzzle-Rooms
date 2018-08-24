@@ -6,9 +6,11 @@ using UnityEngine.Tilemaps;
 
 public class LevelCSVParser : MonoBehaviour {
 
-    public Tilemap tilemap;
+    public GameObject tiles;
     public TextAsset csvFile;
     public GameObject player;
+    public GameObject baseTile;
+    public GameObject hazards;
     public List<LevelObject> levelObjects;
     private bool hasPopulated = false;
 
@@ -39,12 +41,24 @@ public class LevelCSVParser : MonoBehaviour {
                         {
                             GameObject go = InitGameObjectFromKey(_tile);
                             go.transform.position = new Vector2(x, -y);
-                            go.transform.SetParent(tilemap.gameObject.transform);
+                            if (go.tag.Equals("Enemy")) {
+                                GameObject floor = Instantiate(baseTile, go.transform.position, Quaternion.identity);
+                                floor.transform.SetParent(tiles.transform);
+                                go.transform.SetParent(hazards.transform);
+
+                            } else
+                            {
+                                go.transform.SetParent(tiles.transform);
+                            }
                             if (_tile.Contains("enter"))
                             {
                                 GameObject _player = Instantiate(player);
                                 _player.transform.position = new Vector2(x, -y);
                             }
+                        } else if(_tile.Equals(""))
+                        {
+                            GameObject floor = Instantiate(baseTile, new Vector2(x, -y), Quaternion.identity);
+                            floor.transform.SetParent(tiles.transform);
                         }
                         x++;
                     }

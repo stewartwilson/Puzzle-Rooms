@@ -14,5 +14,6 @@ public class ParserUIController : MonoBehaviour {
         }
 
         levelParser.GetComponent<LevelCSVParser>().PopulateLevelFromFile();
+        GameObject.Find("LevelData").GetComponent<LevelData>().PopulateLevelData();
     }
 }
