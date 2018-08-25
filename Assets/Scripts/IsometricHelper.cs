@@ -18,6 +18,43 @@ public static class IsometricHelper
         return new Vector2(posX, posY);
     }
 
+    public static Vector2 gridToGamePostionTile(int x, int y)
+    {
+        float posX = -(y * XDELTA) + (x * XDELTA);
+        float posY = (y * YDELTA) + (x * YDELTA);
+        //posY += pos.elevation * YDELTA;
+        return new Vector2(posX, posY);
+    }
+
+    public static Vector2 gridToGamePostionUnit(int x, int y)
+    {
+        float posX = -(y * XDELTA) + (x * XDELTA);
+        float posY = (y * YDELTA) + (x * YDELTA);
+        //posY += pos.elevation * YDELTA;
+        return new Vector2(posX, posY) + new Vector2(XDELTA,YDELTA);
+    }
+
+    public static Vector3 getMovementVector(Facing facing)
+    {
+        switch(facing)
+        {
+            case Facing.Down:
+                return new Vector2(XDELTA, -YDELTA);
+                
+            case Facing.Up:
+                return new Vector2(-XDELTA, YDELTA);
+                
+            case Facing.Left:
+                return new Vector2(-XDELTA, -YDELTA);
+                
+            case Facing.Right:
+                return new Vector2(XDELTA, YDELTA);
+                
+        }
+        return new Vector2(0, 0);
+
+    }
+
     /**
      * Assigns the sorting order tiles shoudl have so the sprites 
      * are displayed in the correct order

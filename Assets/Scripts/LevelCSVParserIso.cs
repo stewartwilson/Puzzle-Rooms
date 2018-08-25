@@ -35,10 +35,12 @@ public class LevelCSVParserIso : MonoBehaviour {
                         if (_tile != null && !_tile.Equals(""))
                         {
                             GameObject go = InitGameObjectFromKey(_tile);
-                            go.transform.position = IsometricHelper.gridToGamePostion(x,y);
-                            go.GetComponent<SpriteRenderer>().sortingOrder = IsometricHelper.getTileSortingOrder(x, y);
+                            
                             if (go.tag.Equals("Enemy")) {
-                                GameObject floor = Instantiate(baseTile, go.transform.position, Quaternion.identity);
+                                go.transform.position = IsometricHelper.gridToGamePostionUnit(x, y);
+                                go.GetComponent<SpriteRenderer>().sortingOrder = IsometricHelper.getTileSortingOrder(x, y);
+                                GameObject floor = Instantiate(baseTile);
+                                floor.transform.position = IsometricHelper.gridToGamePostionTile(x, y);
                                 floor.GetComponent<SpriteRenderer>().sortingOrder = IsometricHelper.getTileSortingOrder(x, y);
                                 floor.transform.SetParent(tiles.transform);
                                 string name = floor.name.Replace("(Clone)", "");
@@ -48,18 +50,20 @@ public class LevelCSVParserIso : MonoBehaviour {
                             } else
                             {
                                 go.transform.SetParent(tiles.transform);
+                                go.transform.position = IsometricHelper.gridToGamePostionTile(x, y);
+                                go.GetComponent<SpriteRenderer>().sortingOrder = IsometricHelper.getTileSortingOrder(x, y);
                             }
                             if (_tile.Contains("enter"))
                             {
                                 GameObject _player = Instantiate(player);
                                 string name = _player.name.Replace("(Clone)", "");
                                 _player.name = name;
-                                _player.transform.position = IsometricHelper.gridToGamePostion(x, y);
+                                _player.transform.position = IsometricHelper.gridToGamePostionUnit(x, y);
                                 _player.GetComponent<SpriteRenderer>().sortingOrder = IsometricHelper.getTileSortingOrder(x, y);
                             }
                         } else if(_tile.Equals(""))
                         {
-                            GameObject floor = Instantiate(baseTile, IsometricHelper.gridToGamePostion(x, y), Quaternion.identity);
+                            GameObject floor = Instantiate(baseTile, IsometricHelper.gridToGamePostionTile(x, y), Quaternion.identity);
                             floor.GetComponent<SpriteRenderer>().sortingOrder = IsometricHelper.getTileSortingOrder(x, y);
                             floor.transform.SetParent(tiles.transform);
                             string name = floor.name.Replace("(Clone)", "");

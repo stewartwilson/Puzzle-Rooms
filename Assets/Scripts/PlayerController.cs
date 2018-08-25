@@ -40,25 +40,25 @@ public class PlayerController : MonoBehaviour {
             if (_horizontal > 0)
             {
                 facing = Facing.Right;
-                _movementTarget = transform.position + new Vector3(1, 0, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 _attemptMove = true;
             }
             else if (_horizontal < 0)
             {
                 facing = Facing.Left;
-                _movementTarget = transform.position + new Vector3(-1, 0, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 _attemptMove = true;
             }
             else if (_vertical > 0)
             {
                 facing = Facing.Up;
-                _movementTarget = transform.position + new Vector3(0, 1, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 _attemptMove = true;
             }
             else if (_vertical < 0)
             {
                 facing = Facing.Down;
-                _movementTarget = transform.position + new Vector3(0, -1, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 _attemptMove = true;
             }
 

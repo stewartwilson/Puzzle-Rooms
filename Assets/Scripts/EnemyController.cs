@@ -43,16 +43,16 @@ public class EnemyController : MonoBehaviour
         switch (facing)
         {
             case Facing.Down:
-                _movementTarget = transform.position + new Vector3(0, -1, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 break;
             case Facing.Up:
-                _movementTarget = transform.position + new Vector3(0, 1, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 break;
             case Facing.Left:
-                _movementTarget = transform.position + new Vector3(-1, 0, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 break;
             case Facing.Right:
-                _movementTarget = transform.position + new Vector3(1, 0, 0);
+                _movementTarget = transform.position + IsometricHelper.getMovementVector(facing);
                 break;
         }
         Debug.Log("Enemy Move: " + _movementTarget + "Facing " + facing);
