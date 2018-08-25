@@ -23,7 +23,7 @@ public class RunScript : MonoBehaviour {
 
     public void GenerateLevel()
     {
-        GameObject.Find("LevelParser").GetComponent<LevelCSVParser>().PopulateLevelFromFile();
+        GameObject.Find("LevelParser").GetComponent<LevelCSVParserIso>().PopulateLevelFromFile();
         //GameObject.Find("LevelData").GetComponent<LevelData>().PopulateLevelData();
     }
 
