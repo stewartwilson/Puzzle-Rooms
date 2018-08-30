@@ -35,7 +35,7 @@ public class LevelData : MonoBehaviour {
         List<GameObject> _tiles = new List<GameObject>();
         foreach (Transform child in tiles.transform)
         {
-            if(child.gameObject.tag.Equals("Walkable"))
+            if(child.gameObject.tag.Equals("Walkable") || child.gameObject.tag.Equals("LevelExit") || child.gameObject.tag.Equals("LevelEntrance"))
             {
                 validMoves.Add(child.position);
             }

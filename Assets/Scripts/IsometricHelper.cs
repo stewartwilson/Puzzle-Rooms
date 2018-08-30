@@ -31,7 +31,7 @@ public static class IsometricHelper
         float posX = -(y * XDELTA) + (x * XDELTA);
         float posY = (y * YDELTA) + (x * YDELTA);
         //posY += pos.elevation * YDELTA;
-        return new Vector2(posX, posY) + new Vector2(XDELTA,YDELTA);
+        return new Vector2(posX, posY) + new Vector2(0,2*YDELTA);
     }
 
     public static Vector3 getMovementVector(Facing facing)
